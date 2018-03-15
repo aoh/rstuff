@@ -105,7 +105,6 @@ foo[which(foo > 10)]
 
 ## Sets
 
-BOOKMARK
 
 Sorted vectors can be used as sets.
 
@@ -126,8 +125,21 @@ which(sa %in% sb)
 ```
 
 
+## Data Frames
 
+A data frame is essentially a vector of vectors.
 
+BOOKMARK
 
-
+```{r}
+time <- c(0, 1, 2, 3, 4)
+value <- c(10.12, 9.87, 9.52, 9.21, 9.02)
+frame <- data.frame(time, value)
+frame
+frame$value
+frame$value[which(frame$value < 9.5)]
+names(frame)
+names(frame) <- c("generation", "bias")
+frame
+```
 
