@@ -36,7 +36,7 @@ $(TOOLS)/bin/R: tmp/$(RVERSION)
 
 tmp/current.txt: rstuff.html
 	lynx -dump rstuff.html > tmp/out
-	grep -A 20 -B 3 BOOKMARK tmp/out > tmp/current.txt || tail -n 23 tmp/out > tmp/current.txt
+	grep -A 40 -B 3 BOOKMARK tmp/out > tmp/current.txt || tail -n 23 tmp/out > tmp/current.txt
 
 loop: 
-	watch "make tmp/current.txt && cat tmp/current.txt"
+	watch "rm tmp/current.txt; make tmp/current.txt 2>&1 | tail -n 20 && cat tmp/current.txt"
