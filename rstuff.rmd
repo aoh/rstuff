@@ -12,7 +12,7 @@ output:
 
 ```{r}
 # numbers
-42 
+145 
 # big numbers and rationals turn to floats
 10000000000000000000000000000000000 
 2/3
