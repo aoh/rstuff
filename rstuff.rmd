@@ -21,10 +21,113 @@ output:
 
 ### Strings
 
-BOOKMARK
 
 ```{r} 
 "A simple string"
 ```
+
+## Interacting with Operating System
+
+Directories and listing files:
+
+```{r}
+getwd()
+setwd('tmp')
+getwd()
+list.files()
+setwd('..')
+```
+
+## Toplevel Variables
+
+Checking and dropping toplevel variables. 
+
+```{r}
+foo <- 42
+bar <- "hello"
+ls()
+rm('foo')
+ls()
+```
+
+
+## Getting Help
+
+```{r}
+find('getwd')
+apropos('getwd')
+example('getwd')
+```
+
+
+## Vectors
+
+A vector can be defined with c(elements) or by using the range operator `:`.
+
+```{r}
+c(11, 22, 33, 44)
+1:10
+foo <- c(11, 22, 33, 44)
+foo
+```
+
+Common functions for vectors:
+
+
+```{r}
+mean(foo)
+range(foo)
+fivenum(foo)
+var(foo)
+cor(foo, c(10, 19, 34, 42))
+cumprod(foo)
+cumsum(foo)
+cummax(foo)
+```
+
+A negative index means all values apart from the listed one.
+```{r}
+foo
+foo[-1]
+foo[c(-1, -2, -3)]
+```
+
+Comparison of a vector to a scalar yields a bit vector. Positions of true values in a bit vector can be selected with `which`, and the resulting vector can be used to select the values.
+
+
+```{r}
+foo <- c(10, 4, 21, 9, 2, 24)
+foo > 10
+which(foo > 10)
+foo[which(foo > 10)]
+```
+
+
+## Sets
+
+BOOKMARK
+
+Sorted vectors can be used as sets.
+
+```{r}
+sa = c("a", "b", "c", "d")
+sb = c("b", "d", "e")
+union(sa, sb)
+intersect(sa, sb)
+setdiff(sa, sb)
+setequal(sa, sb)
+```
+
+The `%in%` operator can be used to make a membership bit vector.
+
+```{r}
+sa %in% sb
+which(sa %in% sb)
+```
+
+
+
+
+
 
 
