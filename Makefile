@@ -2,15 +2,17 @@ RVERSION=R-3.4.3
 RSUM=7a3cb831de5b4151e1f890113ed207527b7d4b16df9ec6b35e0964170007f426
 TOOLS=$(HOME)/opt/r
 R=$(TOOLS)/bin/R
+RLIBS=$(addprefix .r-, rmarkdown HSAUR3 ggplot2 GGally lattice data.table)
 RSCRIPT=$(TOOLS)/bin/Rscript
 
-deps: Makefile $(R) .r-rmarkdown
+deps: Makefile $(R) $(RLIBS)
 	sudo apt-get install texlive-xetex curl -y
 	touch deps
 
-.r-rmarkdown: $(R)
-	$(RSCRIPT) -e "install.packages('rmarkdown', repos='http://cran.us.r-project.org')"
-	touch .r-rmarkdown
+$(RLIBS): $(R)
+	# Installing R library $(subst .r-,,$@) 
+	$(RSCRIPT) -e "install.packages('$(subst .r-,,$@)', repos='http://cran.us.r-project.org')"
+	touch $(@)
 
 rstuff.pdf: deps $(TOOLS)/bin/R rstuff.rmd 
 	$(RSCRIPT) --latex-engine=xelatex -e "rmarkdown::render('rstuff.rmd')"
