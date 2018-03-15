@@ -4,9 +4,13 @@ TOOLS=$(HOME)/opt/r
 R=$(TOOLS)/bin/R
 RSCRIPT=$(TOOLS)/bin/Rscript
 
-deps: Makefile
+deps: Makefile $(R) .r-rmarkdown
 	sudo apt-get install texlive-xetex curl -y
 	touch deps
+
+.r-rmarkdown: $(R)
+	$(RSCRIPT) -e "install.packages('rmarkdown', repos='http://cran.us.r-project.org')"
+	touch .r-rmarkdown
 
 rstuff.pdf: deps $(TOOLS)/bin/R rstuff.rmd 
 	$(RSCRIPT) --latex-engine=xelatex -e "rmarkdown::render('rstuff.rmd')"
