@@ -1,5 +1,6 @@
 tmp
-deps
+.deps
 .r-*
 rstuff.html
 rstuff.pdf
+current.txt

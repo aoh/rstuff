@@ -12,7 +12,7 @@ output:
 
 ```{r}
 # numbers
-145 
+41
 # big numbers and rationals turn to floats
 10000000000000000000000000000000000 
 2/3
@@ -21,6 +21,10 @@ output:
 
 ### Strings
 
+BOOKMARK
+
 ```{r} 
 "A simple string"
 ```
+
+

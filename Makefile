@@ -5,15 +5,15 @@ R=$(TOOLS)/bin/R
 RLIBS=$(addprefix .r-, rmarkdown HSAUR3 ggplot2 GGally lattice data.table)
 RSCRIPT=$(TOOLS)/bin/Rscript
 
-rstuff.pdf: deps $(TOOLS)/bin/R rstuff.rmd 
+rstuff.pdf: .deps $(TOOLS)/bin/R rstuff.rmd 
 	$(RSCRIPT) --latex-engine=xelatex -e "rmarkdown::render('rstuff.rmd')"
 
-rstuff.html: deps $(TOOLS)/bin/R rstuff.rmd 
+rstuff.html: .deps $(TOOLS)/bin/R rstuff.rmd 
 	$(RSCRIPT) --latex-engine=xelatex -e "rmarkdown::render('rstuff.rmd', output_format='html_document')"
 
-deps: Makefile $(R) $(RLIBS)
+.deps: Makefile $(R) $(RLIBS)
 	sudo apt-get install texlive-xetex curl -y
-	touch deps
+	touch .deps
 
 $(RLIBS): $(R)
 	# Installing R library $(subst .r-,,$@) 
@@ -34,3 +34,9 @@ $(TOOLS)/bin/R: tmp/$(RVERSION)
 	# configuring and installing R to $(TOOLS)
 	cd tmp/$(RVERSION) && ./configure --prefix=$(TOOLS) && make -j2 && make install
 
+tmp/current.txt: rstuff.html
+	lynx -dump rstuff.html > tmp/out
+	grep -A 20 -B 3 BOOKMARK tmp/out > tmp/current.txt || tail -n 23 tmp/out > tmp/current.txt
+
+loop: 
+	watch "make tmp/current.txt && cat tmp/current.txt"
