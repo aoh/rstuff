@@ -1,0 +1,26 @@
+---
+title: "R notes"
+output:
+  pdf_document: default
+---
+
+# R usage and notes
+
+## Simple data structures
+
+### Numbers
+
+```{r}
+# numbers
+42 
+# big numbers and rationals turn to floats
+10000000000000000000000000000000000 
+2/3
+
+```
+
+### Strings
+
+```{r} 
+"A simple string"
+```
