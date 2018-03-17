@@ -11,8 +11,9 @@ rstuff.pdf: .deps $(TOOLS)/bin/R rstuff.rmd
 rstuff.html: .deps $(TOOLS)/bin/R rstuff.rmd 
 	$(RSCRIPT) --latex-engine=xelatex -e "rmarkdown::render('rstuff.rmd', output_format='html_document')"
 
-.deps: Makefile $(R) $(RLIBS)
-	sudo apt-get install texlive-xetex curl -y
+.deps: Makefile 
+	su -c "apt-get install texlive-xetex curl -y libxt-dev libbz2-dev gfortran g++ libreadline-dev git gcc make libz-dev liblzma-dev libpcre3-dev libcurl4-openssl-dev pandoc libpng-dev libjpeg-dev libtiff-dev"
+	make $(R) $(RLIBS)
 	touch .deps
 
 $(RLIBS): $(R)
@@ -40,3 +41,10 @@ tmp/current.txt: rstuff.html
 
 loop: 
 	watch "rm tmp/current.txt; make tmp/current.txt 2>&1 | tail -n 20 && cat tmp/current.txt"
+
+clean:
+	-rm .r-* .deps rstuff.pdf
+	
+mrproper:
+	make clean
+	rm -rf tmp
