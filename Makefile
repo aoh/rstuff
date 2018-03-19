@@ -11,8 +11,11 @@ rstuff.pdf: .deps $(TOOLS)/bin/R rstuff.rmd
 rstuff.html: .deps $(TOOLS)/bin/R rstuff.rmd 
 	$(RSCRIPT) --latex-engine=xelatex -e "rmarkdown::render('rstuff.rmd', output_format='html_document')"
 
-.deps: Makefile 
+.apt-deps:
 	su -c "apt-get install texlive-xetex curl -y libxt-dev libbz2-dev gfortran g++ libreadline-dev git gcc make libz-dev liblzma-dev libpcre3-dev libcurl4-openssl-dev pandoc libpng-dev libjpeg-dev libtiff-dev"
+	touch .apt-deps
+
+.deps: .apt-deps Makefile
 	make $(R) $(RLIBS)
 	touch .deps
 
