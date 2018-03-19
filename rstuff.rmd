@@ -6,9 +6,7 @@ output:
 
 # R usage and notes
 
-## Simple data structures
-
-### Numbers
+## Numbers
 
 ```{r}
 # numbers
@@ -16,10 +14,18 @@ output:
 # big numbers and rationals turn to floats
 10000000000000000000000000000000000 
 2/3
-
 ```
 
-### Strings
+Common operations for numbers.
+
+```{r}
+floor(3.5)
+round(3.5)
+abs(3.5)
+ceiling(3.5)
+```
+
+## Strings
 
 
 ```{r} 
@@ -129,8 +135,6 @@ which(sa %in% sb)
 
 A data frame is essentially a vector of vectors.
 
-BOOKMARK
-
 ```{r}
 time <- c(0, 1, 2, 3, 4)
 value <- c(10.12, 9.87, 9.52, 9.21, 9.02)
@@ -143,3 +147,15 @@ names(frame) <- c("generation", "bias")
 frame
 ```
 
+## Factors
+
+Factors are like enums, or locally interned symbols. Factors can be used to 
+reduce memory load and make comparisons faster.
+
+```{r}
+foo <- factor(c("bird", "plane", "bird", "plane", "plane", "superman", "bird"))
+foo
+is.factor(foo)
+levels(foo)
+as.vector(unclass(foo))
+```
